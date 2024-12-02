@@ -3,8 +3,10 @@
 <%- include('./partials/head.ejs') %>
     <body>
         <%- include('./partials/nav.ejs') %>
-        <form action="/login" method="post">
+        <div class="main-container-div">        
+            <form action="/login" method="post">
             <label for="username">Username:</label>
+            <br>
             <input type="text" id="username" name="username" required>
             <br>
             <label for="password">Password:</label>
@@ -14,7 +16,7 @@
             <p class="login-error-p">Username or password incorrect</p>
             <% } %>
             <input type="submit" value="Login">
-        </form>
+        </form></div>
         <%- include('./partials/footer.ejs') %>
     </body>
 </html>
