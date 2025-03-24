@@ -3,4 +3,5 @@ web shop/node_modules
 react demo/node_modules
 dojo-blog/node_modules
 react-blog/node_modules
-react-blog-2/node_modules   
+web-shop-admin/client/node_modules
+web-shop-admin/server/node_modules
