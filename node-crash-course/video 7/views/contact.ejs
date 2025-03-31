@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <h2><%= about.name %></h2>
+    <a href="mailto:<%= about.email %>"><%= about.email %></a>
+    <p><%= about.info %></p>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
