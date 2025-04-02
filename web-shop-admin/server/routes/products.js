@@ -5,8 +5,10 @@ const router = express.Router()
     // Get all products
 router.get("/", async (req, res) => {
     const db = req.app.locals.db
+    const productName = req.query.product_name ?? ''
     try {
-        const [result, fields] = await db.query('select * from products;')
+        const [result, fields] = await db.query(`select * from products 
+          where name like '${productName}%';`)
         res.json(result)
     } catch (error) {
         res.json('error')
