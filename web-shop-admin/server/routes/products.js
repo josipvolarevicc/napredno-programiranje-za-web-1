@@ -37,4 +37,10 @@ router.get('/productDetails', async (req, res) => {
   }
 })
 
+router.put('/',(req, res) => {
+  const requestBody = req.body
+  console.log("Requset body", requestBody)
+  console.log('update product route')
+  return res.status(204).json();
+})
 export default router
