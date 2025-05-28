@@ -79,4 +79,8 @@ router.put('/', async (req, res) => {
 
 })
 
+router.post('/', (req, res) => {
+  return res.json({status: 'success.'})
+})
+
 export default router
