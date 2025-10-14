@@ -5,7 +5,7 @@ import { db } from '../index.js'
 import { getCategories } from '../services/db/product.js'
 
 const updateProductSchema = z.object({
-  id: z.number().min(0),
+  id: z.number().min(1),
   name: z.string().min(5),
   price: z.number().min(0),
   stock: z.number().min(0),
@@ -19,17 +19,19 @@ const createProductSchema = updateProductSchema.extend({
   category_id: z.number().min(1)
 })
 
+function returnErrorResponse(res) {
+    res.status(404).json('api error')
+}
+
 // Define user routes
 // Get all products
 router.get("/", async (req, res) => {
   const productName = req.query.product_name ?? ''
-  console.log('product name:', productName)
   try {
-    const [result, fields] = await db.query(`select * from products
-           where name like '%${productName}%';`)
+    const result = await getProductsByName(productName)
     res.json(result)
   } catch (error) {
-    res.status(404).json('error')
+    returnErrorResponse(res)
   }
 });
 
@@ -39,19 +41,22 @@ router.get('/productDetails', async (req, res) => {
     res.status(404).json({ message: 'Product not found' })
     return
   }
-  const getProductByIdQuery = `select * from products
-  where id = ?`
+  
   try {
-    const [result, fields] = await db.execute(getProductByIdQuery, [productId])
-    const product = result[0]
-    const productWithPriceInNumber = { ...product, price: Number(product.price) }
-    if (!product) {
+    const product = await getProductById(productId)
+     if (!product) {
       return res.status(404).json({ message: 'Product not found' })
     }
-    await getCategories()
-    return res.json(productWithPriceInNumber)
+    const categories = await getCategories()
+    const productWithPriceInNumber = { ...product, price: Number(product.price) }
+   
+    const productDetailsWithCategories = {
+      categories: categories,
+      product: productWithPriceInNumber
+    }
+    return res.json(productDetailsWithCategories)
   } catch (error) {
-    return res.status(404).json({ message: 'Product not found' })
+    return returnErrorResponse(res)
   }
 })
 
@@ -64,19 +69,9 @@ router.put('/', async (req, res) => {
     })
   }
   const updatedProduct = validationResult.data
-  const updateProductQuery = `update products
-  set name = ?, price = ?, stock = ?, specs = ?, warranty = ?, description = ?
-  where id = ?`
+  
   try {
-    const [results, fields] = await db.execute(updateProductQuery, [
-      updatedProduct.name,
-      updatedProduct.price.toString(),
-      updatedProduct.stock.toString(),
-      updatedProduct.specs,
-      updatedProduct.warranty.toString(),
-      updatedProduct.description,
-      updatedProduct.id.toString()
-    ])
+    await updateProduct(validProduct)
     return res.status(204).json()
   } catch (error) {
     return res.status(500).json()
