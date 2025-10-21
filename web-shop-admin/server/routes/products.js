@@ -2,7 +2,7 @@ import express from 'express'
 const router = express.Router()
 import { z } from 'zod'
 import { db } from '../index.js'
-import { getCategories } from '../services/db/product.js'
+import { addProduct, getCategories, getProductById, getProductsByName, updateProduct } from '../services/db/products.js'
 
 const updateProductSchema = z.object({
   id: z.number().min(1),
@@ -20,7 +20,8 @@ const createProductSchema = updateProductSchema.extend({
 })
 
 function returnErrorResponse(res) {
-    res.status(404).json('api error')
+  // to add error logging
+  res.status(404).json('api error')
 }
 
 // Define user routes
@@ -41,15 +42,13 @@ router.get('/productDetails', async (req, res) => {
     res.status(404).json({ message: 'Product not found' })
     return
   }
-  
   try {
     const product = await getProductById(productId)
-     if (!product) {
+        if (!product) {
       return res.status(404).json({ message: 'Product not found' })
     }
     const categories = await getCategories()
     const productWithPriceInNumber = { ...product, price: Number(product.price) }
-   
     const productDetailsWithCategories = {
       categories: categories,
       product: productWithPriceInNumber
@@ -68,8 +67,7 @@ router.put('/', async (req, res) => {
       issues: validationResult.error.errors
     })
   }
-  const updatedProduct = validationResult.data
-  
+  const validProduct = validationResult.data
   try {
     await updateProduct(validProduct)
     return res.status(204).json()
@@ -87,18 +85,15 @@ router.post('/', async (req, res) => {
       issues: validationResult.error.errors
     })
   }
-  const { name, description, category_id, price, stock, specs, warranty } = validationResult.data
-  const insertNewProductQuery = `insert into products (name, price, stock, category_id, specs, warranty, description)
-                                 values (?, ?, ?, ?, ?, ?, ?)`
+  const validProduct = validationResult.data
+
   try {
-    const [result, fields] = await db.execute(insertNewProductQuery, [name, price, stock, category_id, specs, warranty, description])
-    console.log('Add new product result', result)
-    console.log('Base url:', req.baseUrl)
-    const addedProductUrl = `http://localhost:3000/products/productDetails?id=${result.insertId}`
+    const insertResult = await addProduct(validProduct)
+    // console.log('Base url:', req.baseUrl)
+    const addedProductUrl = `http://localhost:3000/products/productDetails?id=${insertResult.insertId}`
     return res.json({ status: 'success', productUrl: addedProductUrl })
   } catch (error) {
     return res.status(403).json()
   }
 })
-
 export default router
