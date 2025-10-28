@@ -11,7 +11,6 @@ const EditProduct = () => {
     useEffect(() => {
         if (data) {
             setFormData(data.product)
-            console.log('product details data:',data)
         }
     }, [data])
 
@@ -19,7 +18,7 @@ const EditProduct = () => {
         <div>
             {error && <p>Error fetching</p>}
             {isPending && <p>Loading</p>}
-            {formData && <ProductForm formData={formData} setFormData={setFormData} productId={id} categories={data.categories}/>}
+            {formData && <ProductForm formData={formData} setFormData={setFormData} productId={id} categories={data.categories} />}
         </div>
     )
 }
