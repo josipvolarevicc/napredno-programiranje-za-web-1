@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './ProductForm.module.css'
 
-const ProductForm = ({ formData, setFormData, productId, resetFormData }) => {
+const ProductForm = ({ formData, setFormData, productId, resetFormData,categorories }) => {
 
     const [updateInProgress, setUpdateInProgress] = useState(false)
     const [formDataInvalid, setformDataInvalid] = useState(false)
@@ -63,7 +63,13 @@ const ProductForm = ({ formData, setFormData, productId, resetFormData }) => {
                 <label htmlFor="stock">Stock:</label>
                 <input type="number" id="stock" name="stock" value={formData.stock} onChange={handleChange} />
                 <label htmlFor="category">Category:</label>
-                <input type="number" id="category" name="category_id" value={formData.category_id} onChange={handleChange} />
+                {/* <input type="number" id="category" name="category_id" value={formData.category_id} onChange={handleChange} /> */}
+                <select name="category" id="category">
+                        {categorories.map(category => {
+                            <option value={category.id}>{category.name}</option>
+                        })}
+                    
+                </select>
                 <label htmlFor="specs">Specs:</label>
                 <textarea id="specs" name="specs" value={formData.specs} onChange={handleChange} />
                 <label htmlFor="warranty">Warranty:</label>
