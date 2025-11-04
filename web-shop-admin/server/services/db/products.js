@@ -15,8 +15,9 @@ export async function getProductsByName(productName) {
 export async function getProductById(productId) {
     const getProductByIdQuery = `select id,
     name,
+    stock,
     price,
-    category_id as categoryId,
+    categor y_id as categoryId,
     likes,
     specs,
     warranty,
