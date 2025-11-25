@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './CategoriesList.module.css'
+import styles from './CategoriesList.module.css'
 import { Link } from 'react-router-dom'
 
 const CategoriesList = ({categories}) => {

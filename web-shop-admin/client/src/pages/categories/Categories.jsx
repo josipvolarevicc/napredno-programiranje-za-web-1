@@ -12,7 +12,7 @@ const dummyCategories = [
 const Categories = () => {
   return (
     <div>
-      <Link to='/addNewCategory'>Add New Categorie</Link>
+      <Link to='/addNewCategory'>Add New Categories</Link>
       <CategoriesList categories={dummyCategories}/>
     </div>
   )
