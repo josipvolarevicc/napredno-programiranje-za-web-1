@@ -26,7 +26,7 @@ const AddNewProduct = () => {
         <div>
             {error && <p>Error fetching</p>}
             {isPending && <p>Loading</p>}
-            {data && <ProductForm formData={formData} setFormData={setFormData} resetFormData={resetFormData} categories={data} />} 
+            {data && <ProductForm formData={formData} setFormData={setFormData} resetFormData={resetFormData} categories={data} />}
         </div>
     )
 }

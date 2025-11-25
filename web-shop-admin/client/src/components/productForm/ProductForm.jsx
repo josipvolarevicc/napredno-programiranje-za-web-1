@@ -32,6 +32,7 @@ const ProductForm = ({ formData, setFormData, productId, resetFormData, categori
     }
 
     async function handleSubmit(e) {
+        console.log("form data:", formData)
         e.preventDefault()
         setUpdateInProgress(true)
         try {
@@ -63,7 +64,7 @@ const ProductForm = ({ formData, setFormData, productId, resetFormData, categori
     }
 
     return (
-        <form className={styles.product_form} onSubmit={handleSubmit}>
+        <form className={styles.product_form}  onSubmit={handleSubmit}>
             <fieldset disabled={updateInProgress}>
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
@@ -78,7 +79,7 @@ const ProductForm = ({ formData, setFormData, productId, resetFormData, categori
                         if (category.id === formData.categoryId) {
                             isSelected = true
                         }
-                        return <option value={category.id} key={category.id} selected={isSelected}>{category.name}</option>
+                        return <option value={category.id} key={category.id} defaultValue={isSelected}>{category.name}</option>
                     })}
                 </select>
                 <label htmlFor="specs">Specs:</label>
