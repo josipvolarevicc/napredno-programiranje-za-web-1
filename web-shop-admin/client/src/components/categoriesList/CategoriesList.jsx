@@ -1,11 +1,10 @@
 import React from 'react'
-import styles from './CategoriesList.module.css'
+import styles from './categoriesList.module.css'
 import { Link } from 'react-router-dom'
 
-const CategoriesList = ({categories}) => {
-  return (
-    <div><div className={styles.container}>
-        
+const CategoriesList = ({ categories }) => {
+    return (
+        <div className={styles.container}>
             <div className={styles.table_container}>
                 <table className={styles.custom_table}>
                     <thead>
@@ -26,8 +25,8 @@ const CategoriesList = ({categories}) => {
                     </tbody>
                 </table>
             </div>
-        </div></div>
-  )
+        </div>
+    )
 }
 
 export default CategoriesList

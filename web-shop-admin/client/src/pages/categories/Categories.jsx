@@ -1,19 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import CategoriesList from '../../components/categoriesList/CategoriesList'
-
-const dummyCategories = [
-{id: 1, name: 'Consoles'},
-  {id: 2, name: 'Displays'}
-]
- 
-
+import useFetch from '../../hooks/useFetch'
 
 const Categories = () => {
+  const { data, error, isPending } = useFetch('http://localhost:3000/categories')
+
   return (
     <div>
-      <Link to='/addNewCategory'>Add New Categories</Link>
-      <CategoriesList categories={dummyCategories}/>
+      <Link to={'/addNewCategory'}>Add new category</Link>
+      {isPending && <p>Loading categories</p>}
+      {error && <p>Error loading categories</p>}
+      {data && <CategoriesList categories={data} />}
     </div>
   )
 }

@@ -7,6 +7,7 @@ import Users from './pages/users/Users'
 import Orders from './pages/Orders/Orders'
 import EditProduct from './pages/editProduct/EditProduct'
 import AddNewProduct from './pages/addNewProduct/AddNewProduct'
+import EditCategory from './pages/editCategory/EditCategory'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
             <Route index element={<Products />} />
             <Route path={"products"} element={<Products />} />
             <Route path={"categories"} element={<Categories />} />
+            <Route path={"editCategory/:id"} element={<EditCategory />} />
             <Route path={"orders"} element={<Orders />} />
             <Route path={"users"} element={<Users />} />
             <Route path={"editProduct/:id"} element={<EditProduct />} />

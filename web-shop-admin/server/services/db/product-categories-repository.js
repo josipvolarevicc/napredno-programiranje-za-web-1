@@ -5,3 +5,9 @@ export async function getCategories() {
     const [result, fields] = await db.execute(selectAllCategoriesQuery)
     return result
 }
+
+export async function getCategoryDetails(categoryId) {
+    const query = 'select id, name from categories where id = ?'
+    const [result, fields] = await db.execute(query, [categoryId])
+    return result
+}
