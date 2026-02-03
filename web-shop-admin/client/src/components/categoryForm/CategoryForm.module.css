@@ -7,6 +7,10 @@
     font-family: Arial;
     color: var(--color1);
   }
+
+  .product_form fieldset {
+    border: none;
+  }
   
   .product_form h1 {
     margin-bottom: var(--24px);
@@ -21,7 +25,8 @@
   }
   
   .product_form input,
-  .product_form textarea {
+  .product_form textarea,
+  .product_form select {
     width: 100%;
     padding: var(--10px) var(--14px);
     border: 1px solid #ccc;
@@ -62,4 +67,11 @@
 
   .product_form label {
     margin-top: var(--16px);
+  }
+
+  .invalid_form_data_p {
+    color: red;
+    padding: 10px;
+    align-self: center;
+    text-align: center;
   }

@@ -5,7 +5,6 @@ const ProductForm = ({ formData, setFormData, productId, resetFormData, categori
 
     const [updateInProgress, setUpdateInProgress] = useState(false)
     const [formDataInvalid, setformDataInvalid] = useState(false)
-    console.log('categories values', formData)
 
     function handleChange(e) {
         const { name, value } = e.target

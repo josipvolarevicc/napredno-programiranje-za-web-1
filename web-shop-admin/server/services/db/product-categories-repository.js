@@ -11,3 +11,13 @@ export async function getCategoryDetails(categoryId) {
     const [result, fields] = await db.execute(query, [categoryId])
     return result
 }
+
+export async function updateCategory(category) {
+    const updateCategoryQuery = `update categories
+    set name = ?
+    where id = ?`
+    const [results, fields] = await db.execute(updateCategoryQuery, [
+        category.name,
+        category.id.toString()
+    ])
+}
